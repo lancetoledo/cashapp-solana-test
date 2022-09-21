@@ -14,7 +14,7 @@ const Home = () => {
     const { connected, publicKey } = useWallet()
     const [modalOpen, setModalOpen] = useState(false)
 
-    const {getAvatarUrl, user, userAddress} = useCashApp()
+    const { getAvatarUrl, user, userAddress, doTransaction } = useCashApp()
 
     const addTransaction = ({ amount, receiver, transactionPurpose }) => {
         const newID = (transactions.length + 1).toString()
@@ -47,12 +47,12 @@ const Home = () => {
     return (
         <div className="flex min-h-screen ">
             <header className="flex w-[250px] flex-col bg-[#0bb534] p-12">
-                <Profile user = {user} userAddress ={userAddress}/>
+                <Profile user={user} userAddress={userAddress} />
 
                 <NavMenu connected={connected} publicKey={publicKey} />
 
                 <Action setModalOpen={setModalOpen} />
-                <NewTransactionModal modalOpen={modalOpen} setModalOpen={setModalOpen} addTransaction={addTransaction} />
+                <NewTransactionModal modalOpen={modalOpen} setModalOpen={setModalOpen} addTransaction={addTransaction} doTransaction={doTransaction} />
             </header>
 
             <main className="flex flex-1 flex-col">
