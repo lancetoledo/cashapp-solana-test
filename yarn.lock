@@ -412,14 +412,14 @@
   dependencies:
     buffer "~6.0.3"
 
-"@solana/pay@^0.2.2":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@solana/pay/-/pay-0.2.2.tgz#4df5af3d3d2a1bcb63b40560d975d8447d66b693"
-  integrity sha512-ucxg5ArKL0xooFb8BIOyOgIRueUu66woUjDsf9hva1tztY+md6bPuICN5o2OKKZpOUV7DR6yZRCF9QLoVEsdlg==
+"@solana/pay@^0.2.4":
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/@solana/pay/-/pay-0.2.4.tgz#5de8f187fdbd39839fa97c8e72450804757f14c9"
+  integrity sha512-noJHpq56vRY25X2AZlyhEjzZ3x9No88SlkT3I1+DZJyyR6pofVQK1gwHScYwvWbOUZrcsDFmHgrZ3shXudOMNg==
   dependencies:
     "@solana/qr-code-styling" "^1.6.0-beta.0"
-    "@solana/spl-token" "^0.3.4"
-    "@solana/web3.js" "^1.36.0"
+    "@solana/spl-token" "^0.3.5"
+    "@solana/web3.js" "^1.61.0"
     bignumber.js "^9.1.0"
     cross-fetch "^3.1.5"
     js-base64 "^3.7.2"
@@ -432,7 +432,7 @@
   dependencies:
     qrcode-generator "^1.4.3"
 
-"@solana/spl-token@^0.3.4":
+"@solana/spl-token@^0.3.5":
   version "0.3.5"
   resolved "https://registry.yarnpkg.com/@solana/spl-token/-/spl-token-0.3.5.tgz#cabf9f92d755589420b46e457b9b10a879e755aa"
   integrity sha512-0bGC6n415lGjKu02gkLOIpP1wzndSP0SHwN9PefJ+wKAhmfU1rl3AV1Pa41uap2kzSCD6F9642ngNO8KXPvh/g==
@@ -832,7 +832,28 @@
   dependencies:
     "@solana/wallet-adapter-base" "^0.9.16"
 
-"@solana/web3.js@^1.32.0", "@solana/web3.js@^1.36.0", "@solana/web3.js@^1.44.3", "@solana/web3.js@^1.61.0":
+"@solana/web3.js@^1.32.0", "@solana/web3.js@^1.61.0":
+  version "1.62.1"
+  resolved "https://registry.yarnpkg.com/@solana/web3.js/-/web3.js-1.62.1.tgz#b0f98a033086016741fd6335548e92262964ac48"
+  integrity sha512-ylkYM7u3dmTrBDQ1rkHF9kQTkKO+C7TqUvTJ0CfAFKUkQhDLsK2JUARdhkhERmJRqou0kSNmPd1x78IMg+FdTw==
+  dependencies:
+    "@babel/runtime" "^7.12.5"
+    "@noble/ed25519" "^1.7.0"
+    "@noble/hashes" "^1.1.2"
+    "@noble/secp256k1" "^1.6.3"
+    "@solana/buffer-layout" "^4.0.0"
+    bigint-buffer "^1.1.5"
+    bn.js "^5.0.0"
+    borsh "^0.7.0"
+    bs58 "^4.0.1"
+    buffer "6.0.1"
+    fast-stable-stringify "^1.0.0"
+    jayson "^3.4.4"
+    node-fetch "2"
+    rpc-websockets "^7.5.0"
+    superstruct "^0.14.2"
+
+"@solana/web3.js@^1.36.0", "@solana/web3.js@^1.44.3":
   version "1.61.0"
   resolved "https://registry.yarnpkg.com/@solana/web3.js/-/web3.js-1.61.0.tgz#69551a001f5a2e2ce36905007e6b6a3c98b6fec4"
   integrity sha512-vwkETDmqQDuTRikW8o3tLkNNlzQ/NU7MVtQOTkJ/wmlwsUAMgWrWlTNQoP3fzmsenn/5Y/3UbeOYdHaGCNHCgQ==

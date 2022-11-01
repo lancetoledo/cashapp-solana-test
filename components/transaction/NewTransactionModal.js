@@ -1,17 +1,10 @@
-import { useState, useRef, useEffect } from 'react';
-import Modal from '../Modal';
-import { createQR, encodeURL, findReference, validateTransfer, FindReferenceError, ValidateTransferError } from "@solana/pay"
-import { PublicKey, Keypair } from '@solana/web3.js';
-import BigNumber from 'bignumber.js';
-import { useConnection } from '@solana/wallet-adapter-react';
+import { useState } from 'react'
+import Modal from '../Modal'
 
-const NewTransactionModal = ({ modalOpen, setModalOpen, addTransaction, doTransaction }) => {
+const NewTransactionModal = ({ modalOpen, setModalOpen, addTransaction }) => {
     const [amount, setAmount] = useState(0)
     const [receiver, setReceiver] = useState('')
     const [transactionPurpose, setTransactionPurpose] = useState('')
-
-    const { connection } = useConnection()
-    const qrRef = useRef()
 
     const onAmountInput = (e) => {
         e.preventDefault()
@@ -25,72 +18,7 @@ const NewTransactionModal = ({ modalOpen, setModalOpen, addTransaction, doTransa
 
     const onPay = () => {
         addTransaction({ amount, receiver, transactionPurpose })
-
-        doTransaction()
     }
-
-    useEffect(() => {
-        const recipient = new PublicKey("8tkzLsVRBMVbfR7XN87UhzMeUbWVR5vRT5PWEn38VD9L")
-        const amount = new BigNumber("1")
-        const reference = Keypair.generate().publicKey
-        const label = "Evil Cookies Inc"
-        const message = "Thanks for your Sol! 🍪"
-
-        const urlParams = {
-            recipient,
-            // splToken: usdcAddress,
-            amount,
-            reference,
-            label,
-            message,
-        }
-        const url = encodeURL(urlParams)
-        console.log(url)
-        const qr = createQR(url, 512, 'transparent')
-        if (qrRef.current) {
-            qrRef.current.innerHTML = ''
-            qr.append(qrRef.current)
-        }
-
-        // Wait for the user to send the transaction
-
-        const interval = setInterval(async () => {
-            console.log("waiting for transaction confirmation")
-            try {
-                // Check if there is any transaction for the reference
-                const signatureInfo = await findReference(connection, reference, { finality: 'confirmed' })
-
-                // Validate that the transaction has the expected recipient, amount and SPL token
-                await validateTransfer(
-                    connection,
-                    signatureInfo.signature,
-                    {
-                        recipient,
-                        amount,
-                        // splToken: usdcAddress,
-                        reference,
-                    },
-                    { commitment: 'confirmed' }
-                )
-
-                console.log("confirmed, proceed with evil deeds")
-                clearInterval(interval)
-            } catch (e) {
-                if (e instanceof FindReferenceError) {
-                    // No transaction found yet, ignore this error
-                    return;
-                }
-                if (e instanceof ValidateTransferError) {
-                    // Transaction is invalid
-                    console.error('Transaction is invalid', e)
-                    return;
-                }
-                console.error('Unknown error', e)
-            }
-        }, 500)
-
-        return () => clearInterval(interval)
-    })
 
     return (
         <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}>
@@ -117,10 +45,6 @@ const NewTransactionModal = ({ modalOpen, setModalOpen, addTransaction, doTransa
                 </div>
 
                 <div className="flex w-full space-x-1">
-                    <div ref={qrRef} />
-                </div>
-
-                <div className="flex w-full space-x-1">
                     <button className="w-1/2 rounded-lg bg-[#00d54f] py-3 px-12 text-white hover:bg-opacity-70 disabled:cursor-not-allowed disabled:bg-opacity-50" disabled>
                         Request
                     </button>
@@ -128,7 +52,6 @@ const NewTransactionModal = ({ modalOpen, setModalOpen, addTransaction, doTransa
                         Pay
                     </button>
                 </div>
-
             </div>
         </Modal>
     )

@@ -15,7 +15,7 @@ const TransactionDetailModal = ({ currentTransaction, modalOpen, setModalOpen })
 
                 <TransactionMetadata
                     metadata={{
-                        amount: `$${currentTransaction?.amount.toFixed(2)}`,
+                        amount: `$${Number(currentTransaction?.amount).toFixed(2)}`,
                         source: currentTransaction?.source,
                         identifier: currentTransaction?.identifier,
                         to: currentTransaction?.to.name,
@@ -52,7 +52,7 @@ const TransactionProfile = ({ name, handle, avatar, verified }) => {
 const TransactionDetails = ({ amount, description, transactionDate }) => {
     return (
         <div className="flex flex-col items-center justify-center space-y-4">
-            <h3 className="text-6xl">${amount.toFixed(2)}</h3>
+            <h3 className="text-6xl">${Number(amount).toFixed(2)}</h3>
             <div className="flex flex-col items-center text-gray-400">
                 <p>{description}</p>
                 <p>

@@ -7,14 +7,17 @@ import NewTransactionModal from '../components/transaction/NewTransactionModal'
 import TransactionsList from '../components/transaction/TransactionsList'
 import { transactions } from '../data/transactions'
 import { useWallet } from '@solana/wallet-adapter-react'
+import TransactionQRModal from '../components/transaction/TransactionQRModal'
 import { useCashApp } from '../hooks/cashapp'
-import { truncate } from '../utils/string'
+
 
 const Home = () => {
     const { connected, publicKey } = useWallet()
-    const [modalOpen, setModalOpen] = useState(false)
+    const [newTransactionModalOpen, setNewTransactionModalOpen] = useState(false)
+    const [transactionQRModalOpen, setTransactionQRModalOpen] = useState(false)
+    const [qrCode, setQrCode] = useState(false)
 
-    const { getAvatarUrl, user, userAddress, doTransaction } = useCashApp()
+    const { avatar, userAddress } = useCashApp()
 
     const addTransaction = ({ amount, receiver, transactionPurpose }) => {
         const newID = (transactions.length + 1).toString()
@@ -47,12 +50,13 @@ const Home = () => {
     return (
         <div className="flex min-h-screen ">
             <header className="flex w-[250px] flex-col bg-[#0bb534] p-12">
-                <Profile user={user} userAddress={userAddress} />
+                <Profile setModalOpen={setTransactionQRModalOpen} avatar={avatar} userAddress={userAddress} setQrCode={setQrCode} />
+                <TransactionQRModal modalOpen={transactionQRModalOpen} setModalOpen={setTransactionQRModalOpen} userAddress={userAddress} setQrCode={setQrCode} myKey={publicKey} />
 
                 <NavMenu connected={connected} publicKey={publicKey} />
 
-                <Action setModalOpen={setModalOpen} />
-                <NewTransactionModal modalOpen={modalOpen} setModalOpen={setModalOpen} addTransaction={addTransaction} doTransaction={doTransaction} />
+                <Action setModalOpen={setNewTransactionModalOpen} />
+                <NewTransactionModal modalOpen={newTransactionModalOpen} setModalOpen={setNewTransactionModalOpen} addTransaction={addTransaction} />
             </header>
 
             <main className="flex flex-1 flex-col">

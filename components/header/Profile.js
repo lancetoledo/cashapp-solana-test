@@ -1,11 +1,14 @@
 import { truncate } from "../../utils/string"
-
-const Profile = ({user, userAddress}) => {
-    console.log(userAddress,"HEY")
+const Profile = ({ setModalOpen, avatar, userAddress, setQrCode }) => {
+    const onProfileOpen = () => {
+        setModalOpen(true)
+        setQrCode(false)
+    }
+    console.log(avatar, "USERR")
     return (
-        <div className="flex flex-col items-center space-y-3">
+        <div onClick={onProfileOpen} className="flex cursor-pointer flex-col items-center space-y-3">
             <div className="h-16 w-16 rounded-full border-2 border-white">
-                <img className="h-full w-full rounded-full object-cover" src={user} />
+                <img className="h-full w-full rounded-full object-cover" src={avatar} />
             </div>
 
             <div className="flex flex-col items-center space-y-1">
